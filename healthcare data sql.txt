@@ -1,0 +1,43 @@
+-- Query 1
+SELECT *
+FROM "Healthcare DATA"
+LIMIT 10;
+
+-- Query 2
+SELECT FAC_NAME, COUNT(*) AS records
+FROM "Healthcare DATA"
+GROUP BY FAC_NAME
+ORDER BY records DESC
+LIMIT 10;
+
+-- Query 3
+SELECT
+    COUNTY,
+    AVG(DAY_PER) AS avg_days,
+    COUNT(*) AS hospitals
+FROM "Healthcare DATA"
+GROUP BY COUNTY
+ORDER BY avg_days DESC;
+
+-- Query 4
+SELECT
+    COUNTY,
+    SUM(BED_AVL) AS total_available_beds
+FROM "Healthcare DATA"
+GROUP BY COUNTY
+ORDER BY total_available_beds DESC
+LIMIT 10;
+
+-- Query 5
+SELECT
+    COUNTY,
+    SUM(BED_AVL) AS total_available_beds,
+    SUM(BED_LIC) AS total_licensed_beds,
+    ROUND(
+        CAST(SUM(BED_AVL) AS FLOAT) / SUM(BED_LIC),
+        2
+    ) AS utilization_rate
+FROM "Healthcare DATA"
+GROUP BY COUNTY
+ORDER BY utilization_rate DESC
+LIMIT 10;
